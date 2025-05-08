@@ -1,0 +1,28 @@
+/* UserList.css */
+.user-list-container {
+    padding: 16px;
+}
+
+.MuiList-root {
+    margin: 0;
+}
+
+.MuiListItem-root {
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.MuiListItem-root:hover {
+    background-color: #f4f4f4;
+}
+
+.MuiDivider-root {
+    margin: 8px 0;
+}
+
+.MuiTypography-body1 {
+    margin-bottom: 8px;
+    font-weight: 500;
+}

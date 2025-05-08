@@ -1,0 +1,49 @@
+.topbar-appBar {
+  height: 60;
+  justify-content: "center";
+}
+
+/* styles.css */
+
+/* TopBar */
+.topbar-appBar {
+  background-color: #2c3e50;
+  /* Màu nền tối để thanh tiêu đề nổi bật */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* Thêm bóng mờ nhẹ dưới thanh tiêu đề */
+}
+
+.topbar-appBar .MuiTypography-root {
+  font-family: 'Roboto', sans-serif;
+  /* Chọn font đẹp và dễ đọc */
+}
+
+.topbar-appBar .MuiTypography-h6 {
+  font-size: 1.25rem;
+  /* Kích thước chữ vừa phải, dễ nhìn */
+  font-weight: 500;
+  /* Đảm bảo chữ không quá nhẹ */
+  color: #ecf0f1;
+  /* Màu chữ sáng để nổi bật trên nền tối */
+}
+
+.topbar-appBar .MuiTypography-root:first-of-type {
+  font-size: 1.5rem;
+  /* Tăng kích thước chữ cho phần trái (Lường Tiến Dũng) */
+  font-weight: 600;
+  color: #e74c3c;
+  /* Màu chữ nổi bật ở bên trái */
+}
+
+.topbar-appBar .MuiToolbar-root {
+  padding: 0 20px;
+  /* Thêm khoảng cách từ các cạnh */
+}
+
+/* Responsive design: Điều chỉnh khi màn hình nhỏ */
+@media (max-width: 600px) {
+  .topbar-appBar .MuiTypography-root {
+    font-size: 1rem;
+    /* Giảm kích thước chữ khi trên màn hình nhỏ */
+  }
+}

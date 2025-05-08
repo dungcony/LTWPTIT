@@ -1,0 +1,71 @@
+/* Container tổng để chia layout cho User List và User Detail */
+.user-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    /* Khoảng cách giữa 2 phần */
+    margin: 20px;
+}
+
+/* Định dạng UserList (bên trái) */
+.user-list {
+    width: 30%;
+    /* Chiếm 30% chiều rộng */
+    padding: 16px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Định dạng UserDetail (bên phải) */
+.user-detail {
+    width: 65%;
+    /* Chiếm 65% chiều rộng */
+    padding: 16px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề của UserDetail */
+.MuiTypography-h5 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 16px;
+}
+
+/* Thông tin người dùng trong UserDetail */
+.MuiTypography-body1 {
+    font-size: 1rem;
+    margin: 8px 0;
+    color: #555;
+}
+
+/* Liên kết dẫn đến hình ảnh trong UserDetail */
+.MuiTypography-body2 {
+    margin-top: 16px;
+}
+
+.MuiLink-root {
+    font-size: 1rem;
+    text-decoration: none;
+    color: #2980b9;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.MuiLink-root:hover {
+    color: #1abc9c;
+}
+
+/* Điều chỉnh các ListItem trong UserList */
+.MuiListItem-root {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Điều chỉnh các Divider giữa các mục trong UserList */
+.MuiDivider-root {
+    margin: 10px 0;
+}

@@ -12,7 +12,7 @@ const Blog = () => {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch("http://localhost:8080/V1/blog");
+                const response = await fetch("http://localhost:8080/V1/blogs");
                 if (!response.ok) throw new Error("Lỗi khi gọi API danh sách");
                 const result = await response.json();
                 setBlogList(result);

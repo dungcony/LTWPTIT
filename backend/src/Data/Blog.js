@@ -1,13 +1,15 @@
 // Dữ liệu blog mẫu
-const blogPosts = {
-    1: {
+const blogPosts = [
+    {
+        id: 1,
         title: 'GOKU',
         desc: 'MUI'
     },
-    2: {
+    {
+        id: 2,
         title: 'VEGETA',
         desc: 'ultra ego'
     }
-}
+]
 
 module.exports = blogPosts;

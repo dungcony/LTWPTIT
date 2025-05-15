@@ -20,14 +20,25 @@ const Navbar = () => {
 
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav ms-auto">
+
                     {user ? (
                         <>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/blog">Blog</Link>
-                            </li>
-                            <li className="nav-item">
                                 <Link className="nav-link" to="/Home">Home</Link>
                             </li>
+
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/blog">Blog</Link>
+                            </li>
+
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/novel">Novel</Link>
+                            </li>
+
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/new_novel">New Novel</Link>
+                            </li>
+
                             <li className="nav-item">
                                 <button
                                     className="nav-link btn btn-link"

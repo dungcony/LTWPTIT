@@ -5,15 +5,14 @@ import Home from '../Pages/Home'
 import Login from '../Pages/Login'
 import Navbar from './Navbar';
 import ProtectedRoute from '../components/ProtectedRoute';
+import { Novels, NovelDetail } from '../Pages/Novels';
+import NewNovels from '../Pages/NewNovels';
+
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        {/* <navBar>
-          <Link to="/">Blog</Link>
-          <Link to='/Home'>Home</Link>
-        </navBar> */}
         <Navbar />
 
         <Routes>
@@ -36,8 +35,25 @@ function App() {
               <Blog />
             </ProtectedRoute>
           }>
+
             <Route path=":id" element={<BlogDetail />} />
+
           </Route>
+
+          <Route path="/novel" element={<ProtectedRoute>
+            <Novels />
+          </ProtectedRoute>
+          }>
+
+            <Route path=":id" element={<NovelDetail />} />
+
+          </Route>
+
+          <Route path="/new_novel" element={<ProtectedRoute>
+            <NewNovels />
+          </ProtectedRoute>
+          } />
+
         </Routes>
       </div>
     </BrowserRouter>

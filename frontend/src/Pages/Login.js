@@ -8,82 +8,46 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    // Lấy danh sách user khi component mount
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const response = await fetch('http://localhost:8080/V1/user');
-                if (response.ok) {
-                    const data = await response.json();
-                    setUsers(data);
-                }
-            } catch (error) {
-                console.error('Lỗi khi lấy danh sách user:', error);
-            }
-        };
-        fetchUsers();
-    }, []);
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
 
-        // Kiểm tra đăng nhập
-        const user = users.find(
-            u => u.username === username && u.password === password
-        );
+        try {
+            const res = await fetch('http://localhost:8080/V1/check_user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            })
 
-        if (user) {
-            // Lưu thông tin user vào localStorage
-            localStorage.setItem('user', JSON.stringify(user));
-            // Chuyển hướng đến trang Home
-            navigate('/Home');
-        } else {
-            setError('Tên đăng nhập hoặc mật khẩu không đúng');
+            if (res.ok) {
+                const user = await res.json();
+                localStorage.setItem('user', JSON.stringify(user))
+                navigate('/Home');
+            } else if (res.status === 401) {
+                setError("sai tk hoac mk")
+            } else {
+                setError("cos looix xayr ra")
+            }
+
+        }
+        catch (error) {
+            console.error("loi", error)
+            setError("not conection")
         }
     };
 
     return (
-        <div className="container mt-5">
-            <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <div className="card">
-                        <div className="card-body">
-                            <h2 className="text-center mb-4">Đăng nhập</h2>
-                            {error && (
-                                <div className="alert alert-danger" role="alert">
-                                    {error}
-                                </div>
-                            )}
-                            <form onSubmit={handleSubmit}>
-                                <div className="mb-3">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Username"
-                                        value={username}
-                                        onChange={(e) => setUsername(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-3">
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        placeholder="Password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                                <button type="submit" className="btn btn-primary w-100">
-                                    Đăng nhập
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+        <div>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
                 </div>
-            </div>
+                <div>
+                    <input type='text' value={password} onChange={(e) => setPassword(e.target.value)} />
+                </div>
+
+                <button type='submit'>Login</button>
+            </form>
         </div>
     );
 };

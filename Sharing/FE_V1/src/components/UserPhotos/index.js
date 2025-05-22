@@ -9,23 +9,34 @@ import "./styles.css";
 function UserPhotos() {
   const { userId } = useParams();
   const [photos, setPhotos] = useState([]);
+  const [comment, setComment] = useState('')
+  const [photoId, setPhotoId] = useState('')
 
   useEffect(() => {
-    fetchModel(`http://localhost:1504/v1/photos/${userId}`).then(data => {
+    fetchModel(`http://localhost:8081/api/photo/user/${userId}`).then(data => {
       setPhotos(data);
     }).catch(error => {
       console.error("Không thể tải ảnh người dùng:", error);
     });
   }, [userId]);
 
+  const onComment = async (e) => {
+    e.preventDefault();
+    console.log(comment)
+
+    try {
+      const res = await fetch(`http://localhost:8081/api/photo/addcomment/${photoId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ comment })
+      })
+    }
+    catch (error) {
+      console.error("loi")
+    }
+  }
+
   return (
-    //<Typography variant="body1">
-    //   This should be the UserPhotos view of the PhotoShare app. Since it is
-    //   invoked from React Router the params from the route will be in property
-    //   match. So this should show details of user:
-    //   {user.userId}. You can fetch the model for the user
-    //   from models.photoOfUserModel(userId):
-    // </Typography>
     <div>
       <h2>Ảnh của người dùng</h2>
       {photos.map(photo => (
@@ -35,12 +46,24 @@ function UserPhotos() {
           {photo.comments?.map((comment, index) => (
             <div key={index} className="comment">
               <p className="comment-text">Bình luận: {comment.comment}</p>
-              <p className="comment-user">Bởi: {comment.user.first_name} {comment.user.last_name}</p>
+              <p className="comment-user">Bởi: {comment.user_id}</p>
             </div>
           ))}
+          <div>
+            <form onSubmit={onComment}>
+              <label>
+                comment
+                <input type='text' onChange={(e) => {
+                  setComment(e.target.value)
+                  setPhotoId(photo._id)
+                }} />
+                <button type="submit">comment</button>
+              </label>
+            </form>
+          </div>
         </div>
-
       ))}
+
     </div>
   );
 }

@@ -1,15 +1,18 @@
 const express = require('express')
+const Novel = require('../Models/NovelModel')
 
-const Novels = require('../Data/Novels')
-
-const GetNovels = (req, res) => {
-    res.json(Novels)
+const GetNovels = async (req, res) => {
+    try {
+        const novels = await Novel.find({}, 'id name auth desc comment')
+        res.json(novels)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-const GetNovelById = (req, res) => {
+const GetNovelById = async (req, res) => {
     const id = req.params.id
-    const novel = Novels.find(
-        n => n.id == id
+    const novel = await Novel.findOne({ id },
     )
 
     res.json(novel)

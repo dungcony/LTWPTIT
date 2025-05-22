@@ -1,20 +1,49 @@
 // File: server.js
+
 const express = require('express');
 const cors = require('cors');
-const router = require('./src/routes/router');
+const router = require('./src/routes/V1/index');
 const app = express();
-const PORT = 8080;
 
-// Middleware
-app.use(cors({
-    //origin: 'http://localhost:3000'
-}));
-app.use(express.json());
+const exitHook = require('async-exit-hook')
+
+const env = require('./envir');
+const Connect = require('./src/connect/connectMongoo');
 
 
-app.use('/V1', router);
+const START_SERVER = () => {
+    const app = express()
+    // Middleware
+    app.use(cors({
+        //origin: 'http://localhost:3000'
+    }));
+    app.use(express.json());
 
-// Khởi động server
-app.listen(PORT, () => {
-    console.log(`Server running http://localhost:${PORT}`);
-});
+
+    app.use('/V1', router);
+
+    // Khởi động server
+    app.listen(process.env.PORT, env.HOST, () => {
+        console.log(`Server running http://${env.HOST}:${env.PORT}`);
+    });
+
+    exitHook(() => {
+        console.log('Disconecting');
+        mongoose.disconnect()
+        console.log('Disconnected')
+    })
+}
+
+
+(async () => {
+    try {
+        console.log('connectting')
+        await Connect()
+        console.log('connected')
+
+        START_SERVER()
+    } catch (error) {
+        console.log("LOI")
+        process.exit(0)
+    }
+})()

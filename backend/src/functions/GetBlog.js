@@ -1,17 +1,16 @@
-const blogList = require("../Data/Blog")
+const Blog = require('../Models/BlogModel')
 
-
-const GetBlogList = (req, res) => {
-    const listBlog = Object.entries(blogList).map(([id, { title }]) => ({
-        id,
-        title
-    }))
-    res.json(listBlog)
+const GetBlogList = async (req, res) => {
+    const list = await Blog.find({},
+        'id name desc'
+    )
+    res.json(list)
 }
 
-const GetBlogById = (req, res) => {
+const GetBlogById = async (req, res) => {
+
     const id = req.params.id
-    const blog = blogList[id]
+    const blog = await Blog.findOne({ id }, 'id name desc')
 
     if (!blog) {
         return res.status(404).json({ message: 'Không tìm thấy bài viết' })

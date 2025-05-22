@@ -2,12 +2,12 @@
 const blogPosts = [
     {
         id: 1,
-        title: 'GOKU',
+        name: 'GOKU',
         desc: 'MUI'
     },
     {
         id: 2,
-        title: 'VEGETA',
+        name: 'VEGETA',
         desc: 'ultra ego'
     }
 ]

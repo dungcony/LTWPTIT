@@ -54,6 +54,7 @@ const NovelDetail = () => {
     const [novel, setNovel] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
+    const [comment, setComment] = useState('')
 
     useEffect(() => {
         const fetchDataDetail = async () => {
@@ -77,17 +78,54 @@ const NovelDetail = () => {
         fetchDataDetail()
     }, [id])
 
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        console.log(comment)
+        try {
+            const res = await fetch(`http://localhost:8080/V1/novel/set_comment/${id}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ comment })
+            })
+        }
+        catch (error) {
+            console.error("loi", error)
+            setError("not conection")
+        }
+        console.log(e.target.value)
+    }
+
     if (loading) return <p>Đang tải...</p>;
     if (error) return <p style={{ color: "red" }}>{error}</p>;
     if (!novel) return <p>Không tìm thấy truyện</p>;
-
     console.log(novel)
+
+    console.log(novel.comment == null)
 
     return (
         <div>
             <h2>{novel.name}</h2>
             <p>Miêu tả: {novel.desc}</p>
             <p>Tác giả: {novel.auth}</p>
+            <p>comments: {novel.comment ? novel.comment.length : 0}</p>
+            <ul>
+                {(novel.comment || []).map((item, index) => (
+                    <li>
+                        {item}
+                    </li>
+                ))}
+
+            </ul>
+
+            <div>
+
+                <form onSubmit={handleSubmit}>
+                    <input type="text" placeholder="Nhập nội dung bình luận" value={comment} onChange={(e) => setComment(e.target.value)} />
+                    <button type="submit">Bình luận</button>
+                </form>
+
+            </div>
         </div>
     )
 }

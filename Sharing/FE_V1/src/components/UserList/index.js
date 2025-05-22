@@ -16,7 +16,7 @@ function UserList() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetchModel("https://xgvjk8-1504.csb.app/v1/users").then(data => {
+    fetchModel("http://localhost:8081/api/user/list").then(data => {
       setUsers(data);
     }).catch(error => {
       console.error("Không thể tải danh sách người dùng:", error);
@@ -24,12 +24,6 @@ function UserList() {
   }, []);
 
   return (
-    //  <Typography variant="body1">
-    //   This is the user list, which takes up 3/12 of the window. You might
-    //   choose to use <a href="https://mui.com/components/lists/">Lists</a>{" "}
-    //   and <a href="https://mui.com/components/dividers/">Dividers</a> to
-    //   display your users like so:
-    // </Typography>
     <div>
       <Typography variant="body1" sx={{ marginBottom: 2 }}>
         chọn để hiển thị thông tin của người dùng:

@@ -21,8 +21,10 @@ function TopBar() {
 
   useEffect(() => {
     if (userId) {
-      fetchModel(`http://localhost:1504/v1/user/${userId}`)
-        .then((data) => setUser(data))
+      fetchModel(`http://localhost:8081/api/user/${userId}`)
+        .then((data) => {
+          setUser(data)
+        })
         .catch((err) => {
           console.error("Không thể tải thông tin người dùng:", err);
           setUser(null);
@@ -42,13 +44,7 @@ function TopBar() {
   }
 
   return (
-    // <AppBar className="topbar-appBar" position="absolute">
-    //   <Toolbar>
-    //     <Typography variant="h5" color="inherit">
-    //       This is the TopBar component
-    //     </Typography>
-    //   </Toolbar>
-    // </AppBar>
+
     <AppBar className="topbar-appBar" position="absolute">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography variant="h6" color="inherit">

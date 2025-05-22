@@ -34,8 +34,8 @@ const Blog = () => {
             <ul>
                 {blogList.map((item) => (
                     <li key={item.id}>
-                        <Link to={item.id}>
-                            {item.title}
+                        <Link to={`/blog/${item.id}`}>
+                            {item.name}
                         </Link>
                     </li>
                 ))}
@@ -73,12 +73,12 @@ const BlogDetail = () => {
     if (loading) return <p>Đang tải...</p>;
     if (error) return <p style={{ color: "red" }}>{error}</p>;
     if (!blog) return null;
-
+    console.log(blog)
     return (
         <div style={{ marginTop: 20 }}>
             <h3>Chi tiết bài viết</h3>
             <p>
-                <strong>Tiêu đề:</strong> {blog.title}
+                <strong>Tiêu đề:</strong> {blog.name}
             </p>
             <p>
                 <strong>Mô tả:</strong> {blog.desc}

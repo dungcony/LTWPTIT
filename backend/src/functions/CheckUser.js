@@ -1,18 +1,15 @@
 const express = require('express');
-const User = require('../Data/User')
+const Users = require('../Models/UserModel')
 
 
-
-const CheckUser = (req, res) => {
+const CheckUser = async (req, res) => {
     console.log(req.body)
-    const user = {
-        username: req.body.username,
-        password: req.body.password
-    };
+    const { username, password } = req.body;
 
-    const foundUser = User.find(
-        u => u.username === user.username && u.password === user.password
+    const foundUser = await Users.findOne({ username, password },
+        'id'
     );
+
 
     if (foundUser) {
         res.json(foundUser)

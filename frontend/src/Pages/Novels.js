@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+
+import axios from "../utils/axios_edit";
+import { useEffect, useState } from "react";
 import { Link, Outlet, useParams } from "react-router-dom";
 
 const Novels = () => {
@@ -11,14 +13,13 @@ const Novels = () => {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch("http://localhost:8080/V1/novels")
-                if (response.ok) {
-                    const res = await response.json()
-                    setNovelList(res)
-
-                } else {
-                    setError("Lỗi khi lấy danh sách truyện")
-                }
+                await axios.get("/V1/novel/list")
+                    .then(res => {
+                        setNovelList(res)
+                    })
+                    .catch(err => {
+                        setError(err.message)
+                    })
             } catch (err) {
                 setError(err.message)
             } finally {
@@ -61,13 +62,14 @@ const NovelDetail = () => {
             setLoading(true)
             setError(null)
             try {
-                const response = await fetch(`http://localhost:8080/V1/novel/${id}`)
-                if (response.ok) {
-                    const res = await response.json()
-                    setNovel(res)
-                } else {
-                    setError("Lỗi khi lấy thông tin truyện")
-                }
+                await axios.get(`/V1/novel/${id}`)
+                    .then(res => {
+                        setNovel(res)
+                    })
+                    .catch(err => {
+                        setError(err.message)
+                    })
+
             } catch (err) {
                 setError(err.message)
             } finally {
@@ -83,11 +85,20 @@ const NovelDetail = () => {
         e.preventDefault()
         console.log(comment)
         try {
-            const res = await fetch(`http://localhost:8080/V1/novel/set_comment/${id}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ comment })
+            axios.post(`/V1/novel/set_comment/${id}`, {
+                comment: comment
             })
+                .then(res => {
+                    if (res.status === 200) {
+                        setNovel(prevNovel => ({
+                            ...prevNovel,
+                            comment: [...(prevNovel.comment || []), comment]
+                        }));
+                        setComment(''); // Clear the input field after submission
+                    } else {
+                        setError("Lỗi khi gửi bình luận");
+                    }
+                })
         }
         catch (error) {
             console.error("loi", error)

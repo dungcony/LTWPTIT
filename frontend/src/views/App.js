@@ -7,7 +7,8 @@ import Navbar from './Navbar';
 import ProtectedRoute from '../components/ProtectedRoute';
 import { Novels, NovelDetail } from '../Pages/Novels';
 import NewNovels from '../Pages/NewNovels';
-
+import EditBlog from '../Pages/EditBlog';
+import { Users, Userr } from '../Pages/Users';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           }>
 
             <Route path=":id" element={<BlogDetail />} />
+            <Route path="edit/:id" element={<EditBlog />} />
 
           </Route>
 
@@ -44,15 +46,19 @@ function App() {
             <Novels />
           </ProtectedRoute>
           }>
-
             <Route path=":id" element={<NovelDetail />} />
-
           </Route>
 
           <Route path="/new_novel" element={<ProtectedRoute>
             <NewNovels />
           </ProtectedRoute>
           } />
+
+          <Route path="/user" element={<ProtectedRoute>
+            <Users />
+          </ProtectedRoute>}>
+            <Route path=":id" element={<Userr />} />
+          </Route>
 
         </Routes>
       </div>

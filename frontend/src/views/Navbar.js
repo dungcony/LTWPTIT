@@ -38,6 +38,10 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/new_novel">New Novel</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/user">Users</Link>
+                            </li>
+
 
                             <li className="nav-item">
                                 <button

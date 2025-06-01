@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from '../utils/axios_edit'; // Adjust the import path as necessary
 
 const NewNovels = () => {
 
@@ -16,22 +16,11 @@ const NewNovels = () => {
             desc
         }
 
-        const response = await fetch('http://localhost:8080/V1/create_novel', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newNovel)
+        await axios.post('/V1/novel/create_novel', {
+            name: newNovel.name,
+            author: newNovel.author,
+            desc: newNovel.desc
         })
-
-        if (response.ok) {
-            const res = await response.json()
-            console.log(res)
-        } else {
-            console.log('Error')
-        }
-
-        console.log(newNovel)
     }
 
     return (

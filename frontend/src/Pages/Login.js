@@ -1,36 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import axios from '../utils/axios_edit';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [users, setUsers] = useState([]);
+    // const [users, setUsers] = useState([]);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
-
+        console.log("username", username);
+        console.log("password", password);
         try {
-            const res = await fetch('http://localhost:8080/V1/check_user', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
+            await axios.post('/V1/user/login', {
+                username,
+                password
             })
-
-            if (res.ok) {
-                const user = await res.json();
-                localStorage.setItem('user', JSON.stringify(user))
-                navigate('/Home');
-            } else if (res.status === 401) {
-                setError("sai tk hoac mk")
-            } else {
-                setError("cos looix xayr ra")
-            }
-
+                .then(res => {
+                    localStorage.setItem('user', JSON.stringify(res.user));
+                    localStorage.setItem('token', res.token);
+                    navigate('/Home');
+                })
+                .catch(err => {
+                    console.error("Error:", err);
+                    setError("Invalid username or password");
+                });
         }
-        catch (error) {
+        catch {
             console.error("loi", error)
             setError("not conection")
         }

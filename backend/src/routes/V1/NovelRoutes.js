@@ -10,9 +10,9 @@ const SetComment = require('../../functions/SetComment')
 router.use(express.json())
 
 // Novels route
-router.get('/novels', GetNovels)
-router.get('/novel/:id', GetNovelById)
+router.get('/list', GetNovels)
+router.get('/:id', GetNovelById)
 router.post('/create_novel', CreateNovel)
-router.post('/novel/set_comment/:id', SetComment)
+router.post('/set_comment/:id', SetComment)
 
 module.exports = router

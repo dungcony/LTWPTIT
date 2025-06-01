@@ -3,18 +3,17 @@ const router = express.Router();
 
 const BlogRouter = require('./BlogRoutes'); // đúng tên export
 const NovelRouter = require('./NovelRoutes')
-const UserRouter = require('./UserRouter')
+const UserRouter = require('./UserRouter');
+const ImgRouter = require('./ImgsRouter'); // đúng tên export
+const CheckToken = require('../../auth/CheckToken');
 
-router.use(express.json());
 
-// Test route
-router.get('/', (req, res) => {
-    res.send('HELLO WORLD');
-});
+
+router.use('/user', UserRouter)
 
 // Mount blog routes under /api
-router.use('/', BlogRouter);
-router.use('/', NovelRouter)
-router.use('/', UserRouter)
+router.use('/blog', CheckToken, BlogRouter);
+router.use('/novel', CheckToken, NovelRouter)
+router.use('/imgs', ImgRouter);
 
 module.exports = router;

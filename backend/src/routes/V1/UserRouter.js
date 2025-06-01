@@ -1,9 +1,13 @@
 const express = require('express')
 const router = express.Router()
 
-const CheckUser = require('../../functions/CheckUser')
+const Login = require('../../functions/Login')
+const { GetUsers, DeleTeUSer } = require('../../functions/User')
 
 router.use(express.json())
-router.post('/check_user', CheckUser)
+router.post('/login', Login) //login
+
+router.get('/list', GetUsers)
+router.post('delete/:id', DeleTeUSer) //delete user
 
 module.exports = router

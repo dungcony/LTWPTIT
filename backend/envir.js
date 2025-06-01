@@ -9,14 +9,10 @@ const env = {
     USER_NAME: process.env.USER_NAME,
     PASS_WORD: process.env.PASS_WORD,
 
-    MONGO_URI: process.env.MONGO_URI
+    MONGO_URI: process.env.MONGO_URI,
+
+    JWT_SECRET: process.env.JWT_SECRET
 }
 
 module.exports = env
 
-
-const hi = () => {
-    console.log(process.env.MONGO_URI)
-}
-
-hi()
